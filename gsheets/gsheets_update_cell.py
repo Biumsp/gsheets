@@ -1,5 +1,5 @@
 from biumsputils.filesIO import read
-from gsheets_update_request import 
+from .gsheets_update_request import GSheetsUpdateRequest
 from json import loads, dumps
 
 templates = read('templates.json', loads=True)
@@ -19,7 +19,7 @@ class GSheetsUpdateCell(GSheetsUpdateRequest):
         self._replace('$end_col', ecol)
     
     def sheet_id(self, sheet_id):
-        self._replace('$start_row', sheet_id)
+        self._replace('"$start_row"', sheet_id)
 
     def _replace(self, old, new):
         body = dumps(self.body)
