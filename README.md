@@ -8,9 +8,9 @@
 │   ├── gsheets_update.py
 │   ├── gsheets_update_request.py
 │   ├── projects
-│	│	├──project1
-│	│	├──project2
-│	│	├──...
+│   │   ├──project1
+│   │   ├──project2
+│   │   ├──...
 │   │   └── template_project
 │   │       ├── gsheets_update_cell.py -> ../../gsheets_update_cell.py
 │   │       ├── gsheets_update.py -> ../../gsheets_update.py
