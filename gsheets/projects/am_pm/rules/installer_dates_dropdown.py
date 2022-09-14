@@ -7,24 +7,25 @@ import re
 def installer_dates_dropdown(spreadsheet):
     
     # Read the date worksheet
-    print('reading calendar installers')
     sheet_dates = spreadsheet.worksheet('CALENDAR INSTALLERS')
 
     # Read input data
     dates = {}
-    for row in [sheet_dates.row_values(x+1) for x in range(sheet_dates.row_count)]:
+    for x in range(2, 101):
 
-        print(f'getting row {row}')
-        installer = row[0].value
+        row = sheet_dates.row_values(x)
+
+        try: installer = row[0]
+        except IndexError: break
 
         # Stop if the installer name is invalid
         if not re.match(r'[\w\s\d_-]+', installer): break
 
         installer_dates = []
-        for col in range(1, sheet_dates.col_count+1):
+        for col in range(1, 300):
             
-            print(f'getting column {col}')
-            date = row[col+1].value
+            try: date = row[col]
+            except IndexError: break
 
             # Stop if the date is invalid
             if not re.match(r'\d\d/\d\d/\d\d', date): break
@@ -44,37 +45,44 @@ def installer_dates_dropdown(spreadsheet):
 
     # Get dates to be updated and modify available dates
     for installer in dates:
+
         selected  = []
         to_update = []
 
-        projects = [p for p in all_projects if p.value.strip().lower() == installer]
+        # List of row indexes of projects with the same name
+        projects_rows = [i+1 for i, p in enumerate(all_projects) if p.strip().lower() == installer]
 
-        for p in projects:
-            project_date_cell = sheet_projects.cell(p.row, 10)
-            project_date = project_date.value
+        for row in projects_rows:
+            project_date_cell = sheet_projects.cell(row, 16)
+            project_date = project_date_cell.value
 
-            if project_date:
+            if project_date in dates[installer]:
                 selected.append(project_date)
             else:
                 to_update.append(project_date_cell)
 
         # Remove selected dates from available dates
         for s in selected:
-            dates[installer] = dates[installer].remove(s)
+            dates[installer].remove(s)
 
         # Remove duplicates
-        dates[installer] = set(dates[installer])
+        print(f'removing duplicates')
+        dates[installer] = list(set(dates[installer]))
+        dates[installer].sort(key=lambda x: x[-4::]+x[3:5]+x[0:2])
 
         for c in to_update:
+            print(f'adding request to update')
+
             # Create the  object
             request = GSheetsUpdateCell('dropdown')
 
             request.range(c.row-1, c.row, c.col-1, c.col)
             request.sheet_id(sheet_projects.id)
+            request.value_list(dates[installer])
 
             update.add_request(request)
 
-    return update.body
+    return update
 
 
 rule_installer_dates_dropdown = Rule(installer_dates_dropdown)

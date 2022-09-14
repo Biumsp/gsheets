@@ -1,0 +1,29 @@
+{
+    "dropdown": {
+        "updateCells": {
+            "range": {
+                "sheetId": "$sheet_id",
+                "startRowIndex": "$start_row",
+                "endRowIndex": "$end_row",
+                "startColumnIndex": "$start_col",
+                "endColumnIndex": "$end_col"
+            },
+            "rows": [
+                {
+                    "values": [
+                        {
+                            "dataValidation": {
+                                "condition": {
+                                    "values": "$values_list",
+                                    "type": "ONE_OF_LIST"
+                                },
+                                "showCustomUi": true
+                            }
+                        }
+                    ]
+                }
+            ],
+            "fields": "dataValidation"
+        }
+    }
+}
