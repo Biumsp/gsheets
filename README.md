@@ -2,7 +2,7 @@
 
 ## Structure
 
-
+```
 ├── gsheets
 │   ├── gsheets_update_cell.py
 │   ├── gsheets_update.py
@@ -27,6 +27,7 @@
 │   ├── templates_info.py
 │   └── templates.json
 └── README.md
+```  
 
 - gsheets/ contains all the code
 - gsheets/projects are individual automation units: each one with its cloud function and its triggers
