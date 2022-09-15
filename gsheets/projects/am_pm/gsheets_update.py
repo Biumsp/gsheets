@@ -1,1 +1,0 @@
-../../gsheets_update.py
