@@ -1,10 +1,9 @@
-from biumsputils.filesIO import read
-from .gsheets_update_request import GSheetsUpdateRequest
 from json import loads, dumps
 
-templates = read('templates.json', loads=True)
+with open('templates.json', 'r') as file:
+	templates = loads(file.read())	
 
-class GSheetsUpdateCell(GSheetsUpdateRequest):
+class GSheetsUpdateCell():
     """A single request of type updateCell: 
         must be added to an update list"""
 

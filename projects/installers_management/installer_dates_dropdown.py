@@ -1,6 +1,6 @@
-from .rule import Rule
-from ..gsheets_update_cell import GSheetsUpdateCell
-from ..gsheets_update import GSheetsUpdate
+from rule import Rule
+from gsheets_update_cell import GSheetsUpdateCell
+from gsheets_update import GSheetsUpdate
 import re
 
 
@@ -66,13 +66,10 @@ def installer_dates_dropdown(spreadsheet):
             dates[installer].remove(s)
 
         # Remove duplicates
-        print(f'removing duplicates')
         dates[installer] = list(set(dates[installer]))
         dates[installer].sort(key=lambda x: x[-4::]+x[3:5]+x[0:2])
 
         for c in to_update:
-            print(f'adding request to update')
-
             # Create the  object
             request = GSheetsUpdateCell('dropdown')
 

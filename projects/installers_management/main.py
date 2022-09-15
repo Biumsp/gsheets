@@ -1,6 +1,5 @@
 # importing the required libraries
-from gsheets.rules.rules import rules
-from gsheets.rules.rule import Rule
+from rules import rules
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 

@@ -1,5 +1,3 @@
-from pprint import pprint
-
 class Rule():
     def __init__(self, funk):
         self.funk = funk
