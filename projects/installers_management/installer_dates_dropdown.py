@@ -1,7 +1,6 @@
 from rule import Rule
 from gsheets_update_cell import GSheetsUpdateCell
 from gsheets_update import GSheetsUpdate
-import re, time
 
 
 def installer_dates_dropdown(spreadsheet):
@@ -34,7 +33,6 @@ def installer_dates_dropdown(spreadsheet):
     # Create the update object
     update = GSheetsUpdate()
 
-    partial = 0
     # Get dates to be updated and modify available dates
     for installer in dates:
 
