@@ -11,26 +11,14 @@ def installer_dates_dropdown(spreadsheet):
 
     # Read input data
     dates = {}
-    for x in range(2, 101):
-
-        row = sheet_dates.row_values(x)
+    values = sheet_dates.get_all_values()
+    for row in values[1::]:
 
         try: installer = row[0]
         except IndexError: break
 
-        # Stop if the installer name is invalid
-        if not re.match(r'[\w\s\d_-]+', installer): break
-
-        installer_dates = []
-        for col in range(1, 300):
-            
-            try: date = row[col]
-            except IndexError: break
-
-            # Stop if the date is invalid
-            if not re.match(r'\d\d/\d\d/\d\d', date): break
-
-            installer_dates.append(date.strip())
+        installer_dates = row[1::]
+        installer_dates = [d.strip() for d in installer_dates if d]
         
         dates.update({installer.strip().lower(): installer_dates})
 
